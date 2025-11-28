@@ -1,0 +1,150 @@
+:root {
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --light-purple: #8b5cf6;
+    --dark-purple: #5a2d9a;
+}
+
+.bg-purple {
+    background-color: var(--purple) !important;
+}
+
+.bg-pink {
+    background-color: var(--pink) !important;
+}
+
+.text-purple {
+    color: var(--purple) !important;
+}
+
+.text-pink {
+    color: var(--pink) !important;
+}
+
+.btn-purple {
+    background-color: var(--purple);
+    border-color: var(--purple);
+    color: white;
+}
+
+.btn-purple:hover {
+    background-color: var(--dark-purple);
+    border-color: var(--dark-purple);
+    color: white;
+}
+
+.btn-pink {
+    background-color: var(--pink);
+    border-color: var(--pink);
+    color: white;
+}
+
+.btn-pink:hover {
+    background-color: #d91a72;
+    border-color: #d91a72;
+    color: white;
+}
+
+.btn-outline-purple {
+    border-color: var(--purple);
+    color: var(--purple);
+}
+
+.btn-outline-purple:hover {
+    background-color: var(--purple);
+    color: white;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    margin-top: 20px;
+}
+
+.feature-card {
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card {
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.product-image {
+    height: 200px;
+    object-fit: cover;
+}
+
+.cart-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.quantity-btn {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #dee2e6;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.quantity-input {
+    width: 60px;
+    text-align: center;
+    border-left: none;
+    border-right: none;
+}
+
+.category-badge {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+}
+
+.cabello-badge {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.maquillaje-badge {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.piel-badge {
+    background-color: #cce7ff;
+    color: #004085;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.register-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.form-control:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 0.2rem rgba(111, 66, 193, 0.25);
+}
