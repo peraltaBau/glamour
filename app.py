@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.secret_key = os.environ.get("FLASK_SECRET", "dev-secret")
 
 # Configuración de MongoDB
-MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://peraltabautistaanalicbtis272_db_user:admin12345@glamour.diwxvux.mongodb.net/glamour")
+MONGO_URI = os.environ.get("MONGO_URI", "mongodb+srv://peraltabautistaanalicbtis272_db_user:admin123@glamour.diwxvux.mongodb.net/glamour")
 
 try:
     client = MongoClient(MONGO_URI)
@@ -584,3 +584,4 @@ if __name__ == "__main__":
     
 
     app.run(debug=True)
+
