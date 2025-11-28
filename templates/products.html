@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>BUSCA TU PRODUCTO</h1>
+    <div class="dropdown">
+        <button class="btn btn-outline-purple dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            {% if categoria == 'maquillaje' %}Maquillaje
+            {% elif categoria == 'cabello' %}Cuidado del Cabello
+            {% elif categoria == 'piel' %}Cuidado de la Piel
+            {% else %}Todos los Productos
+            {% endif %}
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{{ url_for('products') }}">Todos los Productos</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{{ url_for('products', categoria='maquillaje') }}">Maquillaje</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('products', categoria='cabello') }}">Cuidado del Cabello</a></li>
+            <li><a class="dropdown-item" href="{{ url_for('products', categoria='piel') }}">Cuidado de la Piel</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    {% for producto in productos %}
+    <div class="col-md-3 mb-4">
+        <div class="card h-100 product-card">
+            {% if producto.imagen %}
+            <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" class="card-img-top product-image" alt="{{ producto.nombre }}">
+            {% else %}
+            <img src="https://via.placeholder.com/300x200?text=Glamour+Life" class="card-img-top product-image" alt="Producto sin imagen">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                    <span class="badge {% if producto.categoria == 'cabello' %}cabello-badge
+                                      {% elif producto.categoria == 'maquillaje' %}maquillaje-badge
+                                      {% else %}piel-badge{% endif %} category-badge">
+                        {{ producto.categoria|title }}
+                    </span>
+                </div>
+                <p class="card-text text-muted small flex-grow-1">{{ producto.descripcion[:100] }}...</p>
+                <div class="d-flex justify-content-between align-items-center mt-auto">
+                    <span class="h5 text-purple mb-0">${{ "%.2f"|format(producto.precio) }}</span>
+                    <a href="{{ url_for('product_detail', id=producto._id) }}" class="btn btn-pink btn-sm">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+        <h4 class="text-muted">No se encontraron productos</h4>
+        <p class="text-muted">Intenta con otra categoría o vuelve más tarde.</p>
+        <a href="{{ url_for('products') }}" class="btn btn-purple">Ver Todos los Productos</a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        {% if producto.imagen %}
+        <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" class="img-fluid rounded" alt="{{ producto.nombre }}">
+        {% else %}
+        <img src="https://via.placeholder.com/500x400?text=Glamour+Life" class="img-fluid rounded" alt="Producto sin imagen">
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <span class="badge {% if producto.categoria == 'cabello' %}cabello-badge
+                          {% elif producto.categoria == 'maquillaje' %}maquillaje-badge
+                          {% else %}piel-badge{% endif %} category-badge mb-3">
+            {{ producto.categoria|title }}
+        </span>
+        <h1 class="display-5">{{ producto.nombre }}</h1>
+        <p class="lead">{{ producto.descripcion }}</p>
+        
+        <div class="mb-4">
+            <h2 class="text-purple">${{ "%.2f"|format(producto.precio) }}</h2>
+        </div>
+        
+        {% if session.user_id %}
+        <form class="quantity-form">
+            <input type="hidden" name="product_id" value="{{ producto._id }}">
+            <div class="row align-items-center mb-4">
+                <div class="col-auto">
+                    <label for="cantidad" class="form-label">Cantidad:</label>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group" style="width: 140px;">
+                        <button type="button" class="quantity-btn" onclick="decrementQuantity('cantidad-{{ producto._id }}')">-</button>
+                        <input type="number" class="form-control quantity-input" id="cantidad-{{ producto._id }}" name="cantidad" value="1" min="1">
+                        <button type="button" class="quantity-btn" onclick="incrementQuantity('cantidad-{{ producto._id }}')">+</button>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-pink btn-lg w-100">
+                <i class="fas fa-shopping-cart me-2"></i>AGREGAR AL CARRITO
+            </button>
+        </form>
+        {% else %}
+        <div class="alert alert-info">
+            <a href="{{ url_for('login') }}" class="alert-link">Inicia sesión</a> para agregar productos al carrito.
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="register-container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-purple text-white text-center">
+                    <h3 class="mb-0">REGÍSTRATE EN GLAMOUR LIFE</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST" action="{{ url_for('register') }}">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="nombre" class="form-label">NOMBRE DE LA PERSONA</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="telefono" class="form-label">NÚMERO DE TELÉFONO</label>
+                                <input type="tel" class="form-control" id="telefono" name="telefono" required>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">CORREO ELECTRÓNICO</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="password" class="form-label">CONTRASEÑA</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="confirm_password" class="form-label">CONFIRMAR CONTRASEÑA</label>
+                                <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-pink btn-lg">CONTINUAR</button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <p>¿Ya tienes cuenta? <a href="{{ url_for('login') }}" class="text-purple">Inicia Sesión</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

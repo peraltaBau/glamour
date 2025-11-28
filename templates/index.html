@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-white py-5 rounded mb-5">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold">BIENVENIDO A GLAMOUR LIFE</h1>
+                <p class="lead">Descubre los mejores productos de belleza para realzar tu naturalidad. Maquillaje, cuidado del cabello y cuidado de la piel de alta calidad.</p>
+                <div class="mt-4">
+                    {% if not session.user_id %}
+                    <a href="{{ url_for('register') }}" class="btn btn-pink btn-lg me-3">Crear Cuenta</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Iniciar Sesión</a>
+                    {% else %}
+                    <a href="{{ url_for('products') }}" class="btn btn-pink btn-lg me-3">Ver Productos</a>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <i class="fas fa-spa display-1 opacity-75"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Características -->
+<section class="features-section mb-5">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card p-4 rounded shadow-sm h-100">
+                    <i class="fas fa-palette fa-3x text-purple mb-3"></i>
+                    <h4>Maquillaje</h4>
+                    <p>Descubre nuestra amplia gama de productos de maquillaje para realzar tu belleza natural.</p>
+                    <a href="{{ url_for('products', categoria='maquillaje') }}" class="btn btn-outline-purple">Ver Productos</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card p-4 rounded shadow-sm h-100">
+                    <i class="fas fa-spa fa-3x text-purple mb-3"></i>
+                    <h4>Cuidado del Cabello</h4>
+                    <p>Productos especializados para el cuidado y tratamiento de todo tipo de cabello.</p>
+                    <a href="{{ url_for('products', categoria='cabello') }}" class="btn btn-outline-purple">Ver Productos</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="feature-card p-4 rounded shadow-sm h-100">
+                    <i class="fas fa-hand-holding-heart fa-3x text-purple mb-3"></i>
+                    <h4>Cuidado de la Piel</h4>
+                    <p>Rutinas y productos para el cuidado facial y corporal, adaptados a cada tipo de piel.</p>
+                    <a href="{{ url_for('products', categoria='piel') }}" class="btn btn-outline-purple">Ver Productos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Productos Destacados -->
+<section class="featured-products mb-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Productos Destacados</h2>
+        <div class="row">
+            {% if productos_destacados %}
+                {% for producto in productos_destacados %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 product-card">
+                        {% if producto.imagen %}
+                        <img src="{{ url_for('static', filename='uploads/' + producto.imagen) }}" class="card-img-top product-image" alt="{{ producto.nombre }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/300x200?text=Glamour+Life" class="card-img-top product-image" alt="Producto sin imagen">
+                        {% endif %}
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <p class="card-text text-muted small flex-grow-1">{{ producto.descripcion[:80] }}...</p>
+                            <div class="d-flex justify-content-between align-items-center mt-auto">
+                                <span class="h5 text-purple mb-0">${{ "%.2f"|format(producto.precio) }}</span>
+                                <a href="{{ url_for('product_detail', id=producto._id) }}" class="btn btn-pink btn-sm">Ver Detalles</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-12 text-center">
+                <p class="text-muted">No hay productos destacados disponibles en este momento.</p>
+                {% if session.user_id %}
+                <a href="{{ url_for('admin_products') }}" class="btn btn-purple">Agregar Productos</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

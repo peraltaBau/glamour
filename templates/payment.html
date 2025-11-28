@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 text-center">
+        <div class="card">
+            <div class="card-body py-5">
+                <div class="mb-4">
+                    <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                    <h1 class="text-purple">TU PAGO SE ESTÁ REALIZANDO</h1>
+                </div>
+                
+                <div class="progress mb-4" style="height: 10px;">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-pink" style="width: 100%"></div>
+                </div>
+                
+                <p class="lead mb-4">¡Gracias por tu compra! Tu pedido ha sido procesado exitosamente.</p>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Recibirás un correo electrónico con los detalles de tu pedido.
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('products') }}" class="btn btn-purple btn-lg me-3">SEGUIR COMPRANDO</a>
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-purple btn-lg">VOLVER AL INICIO</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

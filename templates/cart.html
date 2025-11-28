@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="mb-4">CARRITO DE COMPRAS</h1>
+
+{% if cart_items %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">DETALLE DEL PEDIDO</h5>
+            </div>
+            <div class="card-body">
+                {% for item in cart_items %}
+                <div class="row align-items-center mb-3 pb-3 border-bottom" id="cart-item-{{ item.id }}">
+                    <div class="col-2">
+                        {% if item.imagen %}
+                        <img src="{{ url_for('static', filename='uploads/' + item.imagen) }}" class="cart-item-image rounded" alt="{{ item.nombre }}">
+                        {% else %}
+                        <img src="https://via.placeholder.com/80x80?text=GL" class="cart-item-image rounded" alt="{{ item.nombre }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mb-1">{{ item.nombre }}</h6>
+                        <p class="text-muted small mb-0">${{ "%.2f"|format(item.precio) }} c/u</p>
+                    </div>
+                    <div class="col-3">
+                        <div class="input-group input-group-sm" style="width: 120px;">
+                            <button type="button" class="quantity-btn" onclick="updateCartItem('{{ item.id }}', {{ item.cantidad - 1 }})">-</button>
+                            <input type="number" class="form-control quantity-input" value="{{ item.cantidad }}" readonly>
+                            <button type="button" class="quantity-btn" onclick="updateCartItem('{{ item.id }}', {{ item.cantidad + 1 }})">+</button>
+                        </div>
+                    </div>
+                    <div class="col-2 text-end">
+                        <strong>${{ "%.2f"|format(item.subtotal) }}</strong>
+                    </div>
+                    <div class="col-1 text-end">
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeFromCart('{{ item.id }}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-light">
+                <h5 class="mb-0">RESUMEN DEL PEDIDO</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Subtotal:</span>
+                    <span>${{ "%.2f"|format(total) }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Envío:</span>
+                    <span>$0.00</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <strong>TOTAL DEL PEDIDO:</strong>
+                    <strong class="h5 text-purple">${{ "%.2f"|format(total) }}</strong>
+                </div>
+                <a href="{{ url_for('checkout') }}" class="btn btn-pink btn-lg w-100">PAGAR</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="text-center py-5">
+    <i class="fas fa-shopping-cart fa-4x text-muted mb-3"></i>
+    <h3 class="text-muted">Tu carrito está vacío</h3>
+    <p class="text-muted mb-4">Agrega algunos productos para continuar.</p>
+    <a href="{{ url_for('products') }}" class="btn btn-purple btn-lg">BUSCAR PRODUCTOS</a>
+</div>
+{% endif %}
+{% endblock %}
